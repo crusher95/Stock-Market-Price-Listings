@@ -1,7 +1,9 @@
 import json
+import traceback
 from datetime import datetime, timedelta
 
 import cherrypy
+from cherrypy.process.plugins import Daemonizer
 from jinja2 import Environment, FileSystemLoader
 import os
 
@@ -25,6 +27,8 @@ class Root:
             top10 = Redis().fetch_top_10_stocks()
             return template.render(data=top10, title="Top 10 entries for " + datetime.strftime(datetime.now(), '%d/%m/%y'))
         except Exception as e:
+            print(str(e))
+            traceback.print_exc()
             # Can also log the errors into the database
             return json.dumps({'response': 'Some error occurred please try again!'})
 
@@ -44,8 +48,9 @@ class Root:
 
 
 if __name__ == '__main__':
-    cherrypy.config.update({'server.socket_host': '127.0.0.1',
+    cherrypy.config.update({'server.socket_host': '0.0.0.0',
                             'server.socket_port': 8080,
+                            'engine.autoreload.on': False
                             })
     conf = {
         '/': {
@@ -57,4 +62,14 @@ if __name__ == '__main__':
             'tools.staticdir.dir': './static'
         }
     }
-    cherrypy.quickstart(Root(), '/', conf)
+    cherrypy.tree.mount(Root(), config=conf)
+    if hasattr(cherrypy.engine, 'block'):
+        # 3.1 syntax
+        cherrypy.engine.start()
+        cherrypy.engine.block()
+    else:
+        # 3.0 syntax
+        cherrypy.server.quickstart()
+        cherrypy.engine.start()
+
+    # cherrypy.quickstart(Root(), '/', conf)
