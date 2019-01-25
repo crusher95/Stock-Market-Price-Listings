@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" href="static/img/favicon.png" type="image/png">
+        <title>Zerodha - Python Assignment</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="static/css/bootstrap.css">
+        <link rel="stylesheet" href="static/vendors/linericon/style.css">
+        <link rel="stylesheet" href="static/vendors/animate-css/animate.css">
+        <!-- main css -->
+        <link rel="stylesheet" href="static/css/style.css">
+        <link rel="stylesheet" href="static/css/responsive.css">
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+        <!--================Header Menu Area =================-->
+        <header class="header_area">
+            <div class="main_menu">
+            	<nav class="navbar navbar-expand-lg navbar-light">
+					<div class="container box_1620">
+						<!-- Brand and toggle get grouped for better mobile display -->
+						<a class="navbar-brand logo_h" href="index.html"><img src="static/img/logo.png" alt=""></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+							<ul class="nav navbar-nav menu_nav ml-auto">
+								<li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>  
+								<li class="nav-item"><a class="nav-link" href="https://github.com/crusher95" id="github-link" target="blank">Find this on <i class="fa fa-2x fa-github"></i></a></li>
+							</ul>
+						</div> 
+					</div>
+            	</nav>
+            </div>
+        </header>
+        <!--================Header Menu Area =================-->
+        
+        <!--================Home Banner Area =================-->
+        <section class="home_banner_area">
+           	<div class="container box_1620">
+           		<table class="table">
+           			<div class="row">
+           				<form action="/search">
+		           			<div class="col-md-10">
+			           			<input type="search" name="search" class="form-control" placeholder="Search...">
+		           			</div>
+		           			<div class="col-md-2">
+		           				<input type="submit" name="searchButton" value="Search" class="btn btn-md btn-danger pull-right">
+		           			</div>
+	           			</form>           				
+           			</div>
+           			<br>
+           			<h4>{{title}}</h4>
+					<thead class="table-dark">
+						<tr>
+							<th>Code</th>
+							<th>Name</th>
+							<th>Open</th>
+							<th>Low</th>
+							<th>High</th>
+							<th>Close</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for stock in data%}
+						<tr>
+							<td>{{stock.code}}</td>
+							<td>{{stock.name}}</td>
+							<td>{{stock.open}}</td>
+							<td>{{stock.low}}</td>
+							<td>{{stock.high}}</td>
+							<td>{{stock.close}}</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+
+            </div>
+        </section>
+        <!--================End Home Banner Area =================-->
+        
+        
+    
+    </body>
+</html>
